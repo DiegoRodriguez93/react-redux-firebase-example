@@ -25,6 +25,7 @@ export const SearchComponent = () => {
     } else {
       setProductsFound([]);
     }
+    // eslint-disable-next-line
   }, [searchStringValue, productsWithCategories?.length]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +49,7 @@ export const SearchComponent = () => {
         <ListGroup style={{ zIndex: 3, textAlign: 'justify', width: inputSearchWidth }} className="position-absolute">
           {productsFound?.slice(0, 10).map((product) => (
             <ListGroup.Item>
-              <img src={product?.file} style={{ width: '28px', height: '28px', marginRight: '10px' }} />
+              <img src={product?.file} alt={product?.name} style={{ width: '28px', height: '28px', marginRight: '10px' }} />
               {product?.name} - <small className="text-secondary">{product?.categoryName}</small>
             </ListGroup.Item>
           ))}

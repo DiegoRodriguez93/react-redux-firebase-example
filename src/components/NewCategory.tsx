@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
-import { Button, Row, Col, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useFirestore } from 'react-redux-firebase';
 import { getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
