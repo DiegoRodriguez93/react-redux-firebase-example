@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'App.css';
 
-function App() {
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+
+import { Routes } from './routes/Routes';
+import { store } from './redux/store';
+import { ReactReduxFirebaseContextProvider } from './context/ReactReduxFirebaseContextProvider';
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ReactReduxFirebaseContextProvider>
+        <ToastContainer position="bottom-center" />
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </ReactReduxFirebaseContextProvider>
+    </Provider>
   );
-}
-
-export default App;
+};
