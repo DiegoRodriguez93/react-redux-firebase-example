@@ -22,7 +22,7 @@ export const Header = () => {
             <Heart
               color="#a83f39"
               onClick={() => navigate('/favorites')}
-              title={`Add ${name} to favorites`}
+              title={`Go to favorites page`}
               height="30px"
               width="30px"
               cssClasses="pointer mr-5"
