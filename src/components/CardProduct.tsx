@@ -1,33 +1,19 @@
-import { format } from 'date-fns';
 import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-import { HeartOutline, Heart, TrashOutline } from 'react-ionicons';
+
 import { useFirestore } from 'react-redux-firebase';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+
+import { CardProductAddedOnTime } from './CardProductAddedOnTime';
+import { CardProductIcons } from './CardProductIcons';
 
 type CardProductType = ProductType & {
   favorites: CurrentUser['favorites'];
   userId: string;
   productsIdOfFavorites: Array<string>;
   onlyFavorites?: boolean;
-};
-
-type AddedOnTimeType = {
-  favorites: CurrentUser['favorites'];
-  id: ProductType['id'];
-};
-
-const AddedOnTime: FC<AddedOnTimeType> = ({ favorites, id }) => {
-  const timeAdded = favorites?.find((fav) => fav?.product_id === id)?.time_added;
-  const formatedTime = timeAdded && format(new Date(timeAdded), 'M-d-Y H:I');
-
-  if (!formatedTime) {
-    return null;
-  }
-
-  return <small>Added {formatedTime}</small>;
 };
 
 export const CardProduct: FC<CardProductType> = ({
@@ -90,36 +76,16 @@ export const CardProduct: FC<CardProductType> = ({
 
         <Row>
           <Col sm={12}>
-            {productsIdOfFavorites.includes(id) ? (
-              <Heart
-                color="#a83f39"
-                cssClasses="pointer"
-                onClick={() => handleFavorite(true)}
-                title={`Remove ${name} to favorites`}
-                height="30px"
-                width="30px"
-              />
-            ) : (
-              <HeartOutline
-                color="#a83f39"
-                cssClasses="pointer"
-                onClick={() => handleFavorite(false)}
-                title={`Add ${name} to favorites`}
-                height="30px"
-                width="30px"
-              />
-            )}
-            <TrashOutline
-              color="#666666"
-              cssClasses="pointer"
-              onClick={deleteProduct}
-              title={`Delete ${name}`}
-              height="30px"
-              width="30px"
+            <CardProductIcons
+              productsIdOfFavorites={productsIdOfFavorites}
+              id={id}
+              name={name}
+              deleteProduct={deleteProduct}
+              handleFavorite={handleFavorite}
             />
           </Col>
           <Col className="mt-2" sm={12}>
-            {onlyFavorites && <AddedOnTime favorites={favorites} id={id} />}
+            {onlyFavorites && <CardProductAddedOnTime favorites={favorites} id={id} />}
           </Col>
         </Row>
       </Card.Body>
